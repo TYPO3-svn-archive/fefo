@@ -22,6 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once PATH_t3lib . 'error/class.t3lib_error_exception.php';
 
 /**
  * Plugin 'Form' for the 'fefo' extension.
@@ -38,6 +39,12 @@ class tx_fefo_controller_form extends tx_ptmvc_controllerFrontend {
 	 * @return string HTML output
 	 */
 	public function defaultAction() {
+		
+		tx_pttools_assert::isNotEmptyArray($this->conf['formDefinition.'], array('message' => 'No formdefinition found.'));
+		
+		$form = new tx_fefo_form();
+		$form->setPropertiesFromArray($this->conf);
+
 		return 'Hello form';	
 	}
 
